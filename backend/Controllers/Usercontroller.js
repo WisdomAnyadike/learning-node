@@ -68,7 +68,7 @@ const LogIn = async (req, res) => {
                     message: "login successful",
                     genToken,
                     status: "success",
-                    FullName: LoggedUser.FullName,
+                    User: LoggedUser,
                 });
             } else {
                 res.status(400).send({ message: "login unsuccessful" });
@@ -98,7 +98,7 @@ const editacc = async (req, res) => {
 
                     const userToUpdate = await userModel.findOneAndUpdate(
                         { Email: user.Email },
-                        { Email, FullName, hashPassword },
+                        { Email, FullName, Password: hashPassword },
                         { new: true }
                     );
                     if (!userToUpdate) {

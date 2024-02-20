@@ -5,6 +5,8 @@ import NotFound from './Components/UserAuth/NotFound'
 import Login from './Components/UserAuth/Login'
 import Dashboard from './Components/Dashboard/Dashboard'
 import Editprofile from './Components/UserAuth/Editprofile'
+import Seemore from './Components/seemore/Seemore'
+
 
 const App = () => {
   return (
@@ -14,6 +16,7 @@ const App = () => {
     <Route path={'/dashboard'} element={<Dashboard/>}/>
     <Route path={'/edit'} element={<Editprofile/>}/>
     <Route path={'/*'} element={<NotFound/>}/>
+    <Route path={'/seemore/:id'} element={<Seemore/>}/>
     </Routes> 
   )
 }

@@ -2,13 +2,18 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import { userContext } from '../context/Usercontext'
+import { useContext } from 'react'
 
 
 const Editprofile = () => {
+  const {currentUser , setCurrentUser} = useContext(userContext)
     const navigate = useNavigate()
 const [FullName , SetFullName]= useState('')
 const [Email , SetEmail]= useState('')
 const [Password , SetPassword]= useState('')
+
+console.log(currentUser);
 
 const handleEdit = async (e)=> {
     const token = localStorage.getItem("token")
@@ -35,6 +40,17 @@ try {
 
     }
 
+    let forFullName = (e)=> {  
+      setCurrentUser({...currentUser, FullName:e.target.value })
+      SetFullName(e.target.value)
+    }
+
+    let forEmail = (e)=> {
+      setCurrentUser({...currentUser, Email: e.target.value })
+      SetEmail(e.target.value)
+    }
+
+ 
 
 
   return (
@@ -51,18 +67,18 @@ try {
                   <form action='' onSubmit={handleEdit}>
     
                     <div className="form-outline mb-4">
-                      <input onChange={(e)=> SetFullName(e.target.value)} type="text" id="form3Example1cg" className="form-control form-control-lg" />
+                      <input onChange={(e)=> forFullName(e)} value={currentUser.FullName} type="text" id="form3Example1cg" className="form-control form-control-lg" />
                       <label className="form-label" htmlFor="form3Example1cg">Your Name</label>
                     </div>
     
                     <div className="form-outline mb-4">
-                      <input onChange={(e)=> SetEmail(e.target.value)} type="email" id="form3Example3cg" className="form-control form-control-lg" />
+                      <input onChange={(e)=> forEmail(e)} value={currentUser.Email} type="email" id="form3Example3cg" className="form-control form-control-lg" />
                       <label className="form-label" htmlFor="form3Example3cg">Your Email</label>
                     </div>
     
                     <div className="form-outline mb-4">
                       <input onChange={(e)=> SetPassword(e.target.value)} type="password" id="form3Example4cg" className="form-control form-control-lg" />
-                      <label className="form-label" htmlFor="form3Example4cg"> Current Password</label>
+                      <label className="form-label" htmlFor="form3Example4cg"> Your New Password</label>
                     </div>
     
     

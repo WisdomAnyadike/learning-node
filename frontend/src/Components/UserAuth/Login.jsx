@@ -2,11 +2,14 @@ import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { userContext } from '../context/Usercontext'
 
 const Login = () => {
 const navigate = useNavigate()
   const [Email , setEmail] = useState('')
   const [Password , setPassword] = useState('')
+  let {setCurrentUser} = useContext(userContext)
 
   const handleSubmit = async(e)=> {
     e.preventDefault()
@@ -20,9 +23,9 @@ const navigate = useNavigate()
       const res = await axios.post('http://localhost:3490/Api/User/login' , userDetails)
 
       if (res.data.status === "success"){
-        alert( res.data.message + '\n' + 'welcome ' + " " +  res.data.FullName )
+        alert( res.data.message + '\n' + 'welcome ' + " " +  res.data.User.FullName )
         localStorage.setItem('token' , res.data.genToken)
-
+        setCurrentUser(res.data.User)
        navigate('/dashboard')
       }
 
@@ -33,6 +36,7 @@ const navigate = useNavigate()
 
 
   }
+ 
   return (
     
     <form className='w-25 mx-auto mt-5'   >
